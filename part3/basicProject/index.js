@@ -1,5 +1,5 @@
 // const http = require('http')
-
+const cors=require('cors')
 
 let notes = [  
     {    id: "1",    content: "HTML is easy",    important: true  },  
@@ -23,6 +23,7 @@ const generateId=()=>{
 const express=require('express')
 const app=express();
 
+app.use(cors())
 app.use(express.json())
 
 app.get('/',(request,response)=>{
