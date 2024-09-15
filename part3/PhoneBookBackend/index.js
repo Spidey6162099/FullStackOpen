@@ -39,7 +39,7 @@ const generateId=()=>{
 
 app.use(cors())
 app.use(express.json())
-// app.use(express.static('dist'))
+app.use(express.static('dist'))
 app.use(morgan('tiny'))
 
 
@@ -113,7 +113,7 @@ persons=persons.concat(newPerson)
 response.json(newPerson)
 })
 
-const PORT=3001
+const PORT=3001||process.env.PORT
 app.listen(PORT,()=>{
     console.log("app running on server localhost"+PORT)
 })
