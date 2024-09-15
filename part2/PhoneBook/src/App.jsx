@@ -74,16 +74,17 @@ const App = () => {
       
       if(window.confirm(`do you wish to update contact details for ${newName.name}`)){
         const updatedPerson={...person,number:newName.number}
-        contacts.update(updatedPerson,person.id)
+        contacts.update(updatedPerson,updatedPerson.id)
         .then((response)=>{
           const personsExceptUpdated=persons.filter(p=>p.id!=person.id)
-          setPersons(personsExceptUpdated.concat(response))
-          setMessage({type:"message",content:`${response.name} succesfully updated`})
+          setPersons(personsExceptUpdated.concat(updatedPerson))
+          setMessage({type:"message",content:`${updatedPerson.name} succesfully updated`})
           setTimeout(()=>{
             setMessage({})
           },5000)
         })
         .catch(err=>{
+          console.log(err)
           setMessage({type:"error",content:`${person.name} already deleted from server`})
           setPersons(persons.filter(p=>p.id!=person.id))
           setTimeout(()=>{
@@ -120,8 +121,8 @@ const App = () => {
     if(window.confirm("are you sure mate you want to delete"+ ` ${noteToBeDeleted.name}`))
     contacts.del(id)
     .then((response)=>{
-      setPersons(persons.filter(person=>person.id!=response.id))
-      setMessage({type:"message",content:`${response.name} succesfully deleted`})
+      setPersons(persons.filter(person=>person.id!=noteToBeDeleted.id))
+      setMessage({type:"message",content:`${noteToBeDeleted.name} succesfully deleted`})
       setTimeout(()=>{
         setMessage({})
       },5000)
