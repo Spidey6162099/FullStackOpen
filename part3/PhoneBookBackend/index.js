@@ -39,8 +39,9 @@ const generateId=()=>{
 
 app.use(cors())
 app.use(express.json())
-app.use(express.static('dist'))
-// app.use(morgan('tiny'))
+// app.use(express.static('dist'))
+app.use(morgan('tiny'))
+
 
 
 app.get('/api/persons',(request,response)=>{
@@ -76,10 +77,22 @@ app.delete('/api/persons/:id',(request,response)=>{
   persons=persons.filter((note)=>note.id!=id)
   response.status(204).end()
 })
-morgan.token('content',(request,response)=>{
-  return JSON.stringify(request.body)
+
+app.put('/api/persons/:id',(request,response)=>{
+  
+  const obj=request.body
+  console.log(obj);
+  
+  const personsWithoutOldObject=persons.filter(person=>person.id!=obj.id)
+  // console.log(personsWithoutOldObject)
+  persons=personsWithoutOldObject.concat(obj)
+
+  response.status(204).end()
 })
-app.use(morgan('::method :url :response-time ms :content'))
+// morgan.token('content',(request,response)=>{
+//   return JSON.stringify(request.body)
+// })
+// app.use(morgan('::method :url :response-time ms :content'))
 
 app.post('/api/persons/',(request,response)=>{
   const body=request.body

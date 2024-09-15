@@ -9,6 +9,8 @@ const getAll=()=>{
 
 const update=(newObj,id)=>{
     const newUrl=baseUrl+`/${id}`;
+    
+    
 
     return axios.put(newUrl,newObj)
     .then(response=>response.data)
