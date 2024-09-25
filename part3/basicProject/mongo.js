@@ -29,3 +29,5 @@ newNote.save().then(result=>{
     console.log('note saved'+result)
     mongoose.connection.close()
 })
+
+// export {Note};

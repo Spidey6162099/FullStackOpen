@@ -1,27 +1,4 @@
-{
-  "name": "basicproject",
-  "version": "1.0.0",
-  "description": "basic node",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "build:ui": "shx rm -rf dist && cd ../part2/NotesApp/ && npm run build && shx cp -r dist ../part3/basicproject/",
-     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
 
-  },
-  "author": "Shaunak",
-  "license": "ISC",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.20.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.4",
-    "shx": "^0.3.4"
-  }
-}
 
 {
   "name": "basicproject",
