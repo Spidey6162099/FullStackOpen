@@ -22,6 +22,7 @@ const create=(newObj)=>{
     .catch(err=>{console.log(err)})
 }
 const del=(id)=>{
+    // console.log(id)
     const newUrl=baseUrl+`/${id}`;
     return axios.delete(newUrl)
     .then(response=>response.data)

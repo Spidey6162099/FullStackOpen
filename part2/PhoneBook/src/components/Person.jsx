@@ -1,8 +1,9 @@
 const Person=({selectedPerson,handleDelete})=>{
+  // console.log(selectedPerson)
     return (
-    <div>
-    {selectedPerson.map((person)=><div key={person.name}>{person.name}  {person.number}  <button  onClick={()=>{handleDelete(person.id)}}>delete</button></div>)}
-  </div>
+    <>
+    {selectedPerson.map((person)=><div key={person.id}>{person.name}  {person.number}  <button  onClick={()=>{handleDelete(person.id)}}>delete</button></div>)}
+  </>
     )
   }
   export default Person

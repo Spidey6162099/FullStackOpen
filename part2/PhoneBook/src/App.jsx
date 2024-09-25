@@ -84,7 +84,7 @@ const App = () => {
           },5000)
         })
         .catch(err=>{
-          console.log(err)
+          
           setMessage({type:"error",content:`${person.name} already deleted from server`})
           setPersons(persons.filter(p=>p.id!=person.id))
           setTimeout(()=>{
@@ -97,11 +97,15 @@ const App = () => {
     else{
     // setPersons(persons.concat(newName))
     contacts.create(newName).then((response)=>{
+
       setPersons(persons.concat(response))
       setMessage({type:"message",content:`${response.name} succesfully saved`})
       setTimeout(()=>{
         setMessage({})
       },5000)
+    })
+    .catch(err=>{
+      console.log(err)
     })
   }
   
@@ -117,7 +121,9 @@ const App = () => {
   }
 
   const handleDelete=(id)=>{
+    console.log(persons)
     const noteToBeDeleted=persons.find(person=>person.id===id)
+    console.log(noteToBeDeleted)
     if(window.confirm("are you sure mate you want to delete"+ ` ${noteToBeDeleted.name}`))
     contacts.del(id)
     .then((response)=>{
@@ -136,7 +142,7 @@ const App = () => {
     })
   }
 
-  const personsAfterFilter=filter===''?persons:persons.filter((person)=>person.name.toLowerCase().includes(event.target.value.toLowerCase()));
+  const personsAfterFilter=filter===''?persons:persons.filter((person)=>person.name.toLowerCase().includes(filter.value.toLowerCase()));
   
   return (
     <div>

@@ -1,9 +1,11 @@
 import axios from "axios"
 const baseUrl="/api/notes"
+// const mongoose=require('mongoose')
 
 
 
 const getAll=()=>{
+    
     return axios.get(baseUrl).then((response)=>{
         return response.data
     })
