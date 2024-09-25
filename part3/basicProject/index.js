@@ -1,9 +1,16 @@
 // const http = require('http')
 const cors=require('cors')
-const Note=require('./modules/note')
 
 
 
+// const server=http.createServer((request,response)=>{
+//     response.writeHead(200,{"Content-Type":"application/json"})
+//     response.end(JSON.stringify(notes))
+// })
+
+// const PORT=3001
+// server.listen(PORT)
+// console.log(`server running on ${PORT}`)
 const express=require('express')
 const app=express();
 
