@@ -18,10 +18,10 @@ app.get('/api/notes',(request,response)=>{
 })
 
 app.get('/api/notes/:id',(request,response,next)=>{
-    Note.findById(request.params.id).then(noteById=>{
-        if(noteById){
-            response.json(noteById)
-        }
+  Note.findById(request.params.id).then(noteById=>{
+    if(noteById){
+      response.json(noteById)
+    }
         else{
             response.status(404).end()
         }
