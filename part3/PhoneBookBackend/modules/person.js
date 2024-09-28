@@ -4,7 +4,7 @@ dotenv.config()
 
 const url=process.env.MONGODB_URI
 
-console.log("connecting to url "+url)
+// console.log("connecting to url "+url)
 
 mongoose.connect(url).then(result=>{
     console.log("successfully connected")
