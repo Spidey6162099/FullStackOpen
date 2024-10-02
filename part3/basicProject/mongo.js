@@ -1,17 +1,20 @@
 // const mongoose=require('mongoose')
-import mongoose from 'mongoose'
+// import mongoose from 'mongoose'
+const mongoose=require('mongoose')
+const dotenv=require('dotenv')
+dotenv.config()
 
-if(process.argv.length<3){
-    console.log('supply the password mate')
-    process.exit(1)
-}
+// if(process.argv.length<3){
+//     console.log('supply the password mate')
+//     process.exit(1)
+// }
 
-const password=process.argv[2];
+// const password=process.argv[2];
 
-const url=`mongodb+srv://cosmicspidey79:${password}@cluster0.7ghpg.mongodb.net/noteApp?retryWrites=true&w=majority&appName=Cluster0`
-mongoose.set('strictQuery',false)
+// const url=`mongodb+srv://cosmicspidey79:1234@testcluster.ci4ie.mongodb.net/?retryWrites=true&w=majority&appName=TestCluster`
+// mongoose.set('strictQuery',false)
 
-mongoose.connect(url)
+mongoose.connect(process.env.TEST_MONGODB_URI)
 
 const noteScheme=new mongoose.Schema({
     content:String,
@@ -21,8 +24,8 @@ const noteScheme=new mongoose.Schema({
 const Note=mongoose.model('Note',noteScheme)
 
 const newNote=new Note({
-    content:"hello world",
-    important:true
+    content:"bye bye",
+    important:false
 })
 
 newNote.save().then(result=>{

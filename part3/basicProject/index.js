@@ -6,4 +6,4 @@ app.listen(config.PORT,()=>{
     logger.info("SERVER RUNNING ON PORT "+config.PORT )
 })
 
-module.exports=app;
+// module.exports=app;

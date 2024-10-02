@@ -1,13 +1,18 @@
 
 const express=require('express')
+require('express-async-errors')
 const app=express();
 const cors=require('cors')
 const Note=require('./modules/note')
 const config=require('./utils/config')
 const logger=require('./utils/logger')
 const middleware=require('./utils/middleware')
+
 const notesRouter=require('./controllers/notes')
+const userRouter=require('./controllers/users')
+
 const dotenv=require('dotenv')
+
 dotenv.config()
 const mongoose=require('mongoose')
 mongoose.set('strictQuery', false)
@@ -27,6 +32,7 @@ app.use(express.json())
 app.use(middleware.requestLogger)
 
 app.use('/api/notes', notesRouter)
+app.use('/api/users',userRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
