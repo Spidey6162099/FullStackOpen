@@ -74,7 +74,7 @@ notesRouter.post('/',async(request,response,next)=>{
 
 })
 
-notesRouter.put('/:id',(request,response,next)=>{
+notesRouter.put('/:id',async (request,response,next)=>{
     let id=request.params.id;
 
     const body=request.body;
@@ -85,7 +85,7 @@ notesRouter.put('/:id',(request,response,next)=>{
         "important":body.important
     }
 
-    const result=Note.findByIdAndUpdate(id,note,{new:true,runValidators:true})
+    const result=await Note.findByIdAndUpdate(id,note,{new:true,runValidators:true})
     response.json(result)
 })
 
