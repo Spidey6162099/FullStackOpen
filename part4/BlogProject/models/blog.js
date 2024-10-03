@@ -1,10 +1,22 @@
 const mongoose=require('mongoose')
 const { Transform } = require('stream')
 const blogSchema=new mongoose.Schema({
-    title:String,
+    title:{
+        type:String,
+        required:true,
+    },
+    
     author:String,
-    url: String,
-    likes: Number
+    url:{
+        type:String,
+        required:true
+
+    } ,
+    likes: Number,
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+       }
 })
 blogSchema.set("toJSON",{transform:(recievedObj,sentObj)=>{
     sentObj.id=sentObj._id.toString()
