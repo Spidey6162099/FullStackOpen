@@ -48,6 +48,9 @@ const getToken=(request,resposne,next)=>{
 }
 
 const userExtractor=async (request,response,next)=>{
+   if(request.method!='POST'&&request.method!='DELETE'){
+     return next()
+   }
 
    const authorization=request.token;
    const decodedId=jwt.decode(authorization,process.env.SECRET)

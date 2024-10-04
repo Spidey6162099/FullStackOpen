@@ -25,8 +25,9 @@ blogRouter.post('/',async(request,response)=>{
     // }
 
     const user= request.user
+    console.log(user)
     const newObj={...request.body,likes:request.body.likes||0
-        ,user:user._id
+        ,user:user.id
     }
     const blog=new Blog(newObj)
    
@@ -55,6 +56,9 @@ blogRouter.delete('/:id',async(request,response)=>{
         return response.status(401).json({'error':"not authorized to delete other user blogs"})
     }
     const finalResult=await Blog.findByIdAndDelete(id)
+    console.log(actualUser.blogs)
+    actualUser.blogs=actualUser.blogs.filter(blog=>blog.toString()!=id)
+    await actualUser.save()
     
     response.status(204).end()
 })
