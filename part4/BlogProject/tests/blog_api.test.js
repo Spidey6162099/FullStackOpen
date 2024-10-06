@@ -3,7 +3,8 @@ const mongoose=require('mongoose')
 const assert=require('node:assert')
 const supertest=require('supertest')
 const app=require('../app')
-
+const dotenv=require('dotenv')
+dotenv.config()
 
 const api=supertest(app)
 
@@ -11,9 +12,12 @@ const testHelper=require('./test_helper')
 const Blog=require('../models/blog')
 const config=require('../utils/config')
 const { first } = require('lodash')
+
+const User=require('../models/user')
+const user = require('../models/user')
 describe('with some initial blogs',()=>{
 
-
+let token=null;
 
 beforeEach(async()=>{
 
@@ -23,6 +27,26 @@ beforeEach(async()=>{
     //     await newBlog.save()
     // }
     await Blog.insertMany(testHelper.blogs)
+
+    const newUser= new User({
+        username:'hello',
+        password:'1234'
+    })
+
+    await User.deleteMany({})
+
+    const saveUser=await newUser.save()
+    const tokenObj=await api.post('/api/login')
+                        .send({
+        username:'hello',
+        password:'1234'
+    })
+                                   
+
+    token=tokenObj.body.token;
+    
+
+                        
 })
 describe('fetching and format tests',()=>{
 
@@ -67,13 +91,16 @@ test('valid object is saved succesfully',async ()=>{
             url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
             likes: 0,
     }
+    
     let result=await api.post('/api/blogs')
+    .set('Authorization', 'Bearer ' + token)
                         .send(newBlog)
                         .expect(201)
                         .expect('Content-type',/application\/json/)
     
 
                         delete result.body.id
+                        delete result.body.user
     const blogsInDb=await testHelper.blogsInDb()
     assert.strictEqual(testHelper.blogs.length+1,blogsInDb.length)
     assert.deepStrictEqual(result.body,newBlog)
@@ -86,6 +113,7 @@ test('missing likes sets likes to zero',async()=>{
         url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
 }
     const result = await api.post('/api/blogs')
+    .set('Authorization',"Bearer "+token)
                             .send(newBlog)
                             .expect(201)
                             .expect('Content-type',/application\/json/)
@@ -97,6 +125,7 @@ test('missing url or title means cannot be done',async()=>{
         author: "Robert C. Martin",
 }
     const result = await api.post('/api/blogs')
+    .set('Authorization',`Bearer ${token}`)
                             .send(newBlog)
                             .expect(400)
                             .expect('Content-type',/application\/json/)
@@ -107,20 +136,28 @@ test('missing url or title means cannot be done',async()=>{
 
 describe('tests to validate delete operation',()=>{
     test('delete happens succesfully',async ()=>{
-        // const blogObject=new Blog(
-        //     {"title":"well",
-        //         "author":"well",
-        //         "url": "well",
-        //         "likes": 90}
-        // )
+        const blogObject=new Blog(
+            {"title":"well",
+                "author":"well",
+                "url": "well",
+                "likes": 90}
+        )
 
-        // await blogObject.save()
-        // const id=blogObject._id.toString();
+        const savedObject=await api.post('/api/blogs')
+                .set("Authorization","Bearer "+token)
+                .send({"title":"well",
+                    "author":"well",
+                    "url": "well.com",
+                    "likes": 90})
+        console.log(savedObject.body);
+        
+                    const id=savedObject.body.id;
         const blogsBefore=await testHelper.blogsInDb()
-        const firstBlog=blogsBefore[0]
+
         
 
-        await api.delete(`/api/blogs/${firstBlog.id}`)
+        await api.delete(`/api/blogs/${id}`)
+        .set('Authorization',`Bearer ${token}`)
                 .expect(204)
         const blogsAfter=await testHelper.blogsInDb()
         assert.strictEqual(blogsBefore.length-1,blogsAfter.length)
@@ -130,6 +167,7 @@ describe('tests to validate delete operation',()=>{
         const nonExistingId=await testHelper.nonExistingId()
         const blogsBefore=await testHelper.blogsInDb()
         await api.delete(`/api/blogs/${nonExistingId}`)
+        .set('Authorization',`Bearer ${token}`)
                 .expect(404)
         const blogsAfter=await testHelper.blogsInDb()
         assert.strictEqual(blogsBefore.length,blogsAfter.length)
