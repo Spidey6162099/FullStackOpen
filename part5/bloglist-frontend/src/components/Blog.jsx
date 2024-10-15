@@ -1,46 +1,40 @@
 import Togglable from "./Togglable"
 import { useState } from "react"
 
+import blogsService from "../services/blogs"
+import blogs from "../services/blogs"
 
 
 
-const Blog = ({ blog,handleDelete }) => {
+
+const Blog = ({ blog,handleDelete,handleLikes }) => {
   const [visible,setVisible] = useState(false)
   const toggleVisibility=()=>{setVisible(!visible)}
     const hideWhenVisible = { display: visible ? 'none' : '' }
     const showWhenVisible = { display: visible ? '' : 'none' }
   const ShowButton=()=>{
-    return(<button style={hideWhenVisible} onClick={()=>{setVisible(!visible)}}>show</button>)
+    return(<button className="button-28" style={hideWhenVisible} onClick={()=>{setVisible(!visible)}}>show</button>)
   }  
   const HideButton=()=>{
-    return (<button style={showWhenVisible} onClick={()=>{setVisible(!visible)}}>hide</button>)
+    return (<button className="button-28" style={showWhenVisible} onClick={()=>{setVisible(!visible)}}>hide</button>)
   }
-  // const handleLikes=async()=>{
-  //   blog.likes+=1
-  //   const newBlog={
-  //     author:blog.author,
-  //     url:blog.url,
-  //     title:blog.title,
-  //     likes:blog.likes
-  //   }
-  //   await axios.
 
-    
-  // }
-  // const LikeButton=()=>{
-  //   return (<button onClick={(handleLikes)}>like</button>)
-  // }
+  const LikeButton=()=>{
+    return (<button className="button-28" onClick={(handleLikes)}>like</button>)
+  }
   return(
   
   <div className="blog">
     <div>
-    {blog.title} : {blog.author}  <button onClick={()=>handleDelete(blog.id)}>delete</button><ShowButton></ShowButton><HideButton></HideButton>
+    {blog.title} : {blog.author}  <button className="button-28" onClick={()=>handleDelete(blog.id)}>delete</button><LikeButton></LikeButton><ShowButton></ShowButton><HideButton></HideButton>
     </div>
    
     <div>
     
     <div style={showWhenVisible}>
-      {blog.url} {blog.likes}
+      <p>url:{blog.url} <button className="button-28" onClick={()=>{window.open(blog.url)}}>go to</button> </p>
+      <p>likes:{blog.likes}</p>
+        
     </div>
     </div>
 

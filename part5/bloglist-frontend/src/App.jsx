@@ -51,12 +51,15 @@ const App = () => {
 
 
   const loginForm = () => (
-    <>
+    
+    <div className='loginForm'>
     <h2>Login to Application</h2>
     <form onSubmit={handleLogin}>
       <div>
-        username
+      <label>username:</label>
+        
           <input
+          className='input'
           type="text"
           value={username}
           name="Username"
@@ -64,17 +67,19 @@ const App = () => {
         />
       </div>
       <div>
-        password
+      <label>password:</label>
           <input
+          className='input'
           type="password"
           value={password}
           name="Password"
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type="submit">login</button>
+      <button className="button-27" type="submit" >login</button>
     </form>
-    </>      
+    </div>
+      
   )
 
  
@@ -89,8 +94,22 @@ const App = () => {
   }
 
   useEffect(() => {
-    blogService.getAll().then(Blogs =>
+    const blogsInDb=blogService.getAll().then(Blogs =>{
+      Blogs.sort((a,b)=>{
+        if(a.likes>b.likes){
+          return -1;
+        }
+        else if(a.likes<b.likes){
+          return 1;
+        }
+        else{
+          return 0;
+        }
+      })
+      console.log(Blogs)
       setBlogs( Blogs )
+    }
+      
     )  
   }, [])
 
@@ -138,13 +157,35 @@ const App = () => {
     }
     blogFormRef.current.toggleVisibility()
   }
+
+  const handleLikes=async(id,blog)=>{
+    console.log(blog)
+    const newBlog={
+      author:blog.author,
+      url:blog.url,
+      title:blog.title,
+      likes:blog.likes+1,
+      user:blog.user,
+      id:blog.id
+    }
+    const savedBlog=await blogService.update(id,newBlog)
+    let blogsWithUpdated=blogs.map(blog=>blog.id===id?newBlog:blog)
+
+    setBlogs(blogsWithUpdated)
+
+    
+  }
+
+
   return (
     <div>
       <Error errorMessage={errorMessage}></Error>
       <Success successMessage={successMessage}></Success>
+
+      <h2 className='header'>Blogs-Galore</h2>
       {user!==null?
       <div>  
-        <p>{user.name} logged in<button onClick={logOut} className='logout'>Log out</button></p>
+        <p>{user.name} logged in<button onClick={logOut} className='button-28'>Log out</button></p>
         <Togglable buttonLabel="new blog"ref={blogFormRef}>
         <NewBlog addBlog={addBlog}></NewBlog>
         </Togglable> 
@@ -153,10 +194,10 @@ const App = () => {
         :<Togglable buttonLabel="login"> 
         {loginForm()}
         </Togglable>}
-      <h2>blogs</h2>
+
       {blogs.map(blog =>
         
-        <Blog key={blog.id} blog={blog} handleDelete={handleDelete}/>
+        <Blog key={blog.id} blog={blog} handleDelete={handleDelete} handleLikes={()=>handleLikes(blog.id,blog)}/>
       )}
     </div>
   )

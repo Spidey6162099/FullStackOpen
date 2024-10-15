@@ -23,6 +23,8 @@ const NewBlog=({addBlog})=>{
         setUrl('')
       }
 
+
+
     return (      <form onSubmit={handleSubmit} >
         <div>
         <label>Author</label>

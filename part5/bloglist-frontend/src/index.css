@@ -1,15 +1,31 @@
+@font-face {
+  font-family: myFirstFont;
+  src: url(../fonts/roboto/Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: headingFont;
+  src: url('../fonts/inter/static/Inter_18pt-Bold.ttf');
+}
+
+.header{
+  font-family: headingFont;
+  font-size: 50px;
+}
 .blog{
-    color:black;
-    padding: 5px 10px;
+    color:aliceblue;
+    padding: 15px 15px;
+    
     
     font-size: 20px;
-    background-color: antiquewhite;
-    margin: 5px;
+    background-color: #697565;
+    border-radius: 10px;
+    margin: 10px 0px;
   }
   
   .error {
-    color: red;
-    background: lightgrey;
+    color: white;
+    background: red;
     font-size: 20px;
     border-style: solid;
     border-radius: 5px;
@@ -18,12 +34,167 @@
   }
 
   .success{
-    color: green;
-    background: lightgrey;
+    color: white;
+    background: green;
     font-size: 20px;
     border-style: solid;
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 10px;
   }
-  
+
+  body{
+    background-color: #3C3D37;
+    font-family: myFirstFont;
+    color: #E2703A;
+    margin: 20px;
+  }
+  /* <!-- HTML !-->
+<button class="button-1" role="button">Button 1</button> */
+
+/* CSS */
+.button-1 {
+  background-color: #241c59;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #F5F5F5;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 7px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 3px 6px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-1:hover,
+.button-1:focus {
+  background-color: #415a77;
+}
+
+
+
+/* CSS */
+.button-27 {
+  appearance: none;
+  background-color: #E3651D;
+  border: 2px solid orangered;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #F5F5F5;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 20px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 30px;
+  min-width: 20px;
+  outline: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  /* width: 100%; */
+  will-change: transform;
+}
+
+.button-27:disabled {
+  pointer-events: none;
+}
+
+.button-27:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-27:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.button-28 {
+  appearance: none;
+  background-color: #E3651D;
+  border: 2px solid orangered;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #F5F5F5;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 15px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0px 5px ;
+  min-height: 20px;
+  min-width: 0;
+  outline: none;
+  padding: 4px 10px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  /* width: 100%; */
+  will-change: transform;
+}
+
+.button-28:disabled {
+  pointer-events: none;
+}
+
+.button-28:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-28:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.input{
+padding: 6px 12px;
+font-size: 18px;
+font-weight: 400;
+line-height: 1.5;
+color: #212529;
+background-color: #fff;
+background-clip: padding-box;
+border: 1px solid #ced4da;
+appearance: none;
+border-radius: 4px;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+
+}
+
+}
+
+.loginForm{
+  font-size: 20px;
+}
