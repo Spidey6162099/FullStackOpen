@@ -1,21 +1,21 @@
 const Error = ({ errorMessage }) => {
-    if (!errorMessage) return null; // Return null if there's no error message to display
-  
-    return (
-      <div className="error">
-        {errorMessage}
-      </div>
-    );
-  };
+  if (!errorMessage) return null // Return null if there's no error message to display
 
-
-const Success=({successMessage})=>{
-  if(!successMessage){return null;}
-  
   return (
-    <div className="success">
-        {successMessage}
+    <div className="error">
+      {errorMessage}
     </div>
   )
 }
-export {Error,Success}
+
+
+const Success=({ successMessage }) => {
+  if(!successMessage){return null}
+
+  return (
+    <div className="success">
+      {successMessage}
+    </div>
+  )
+}
+export { Error,Success }
